@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">android-recyclerview-demo</string>
+    <string name="title_swipe_refresh_activity">Swipe Refresh Activity</string>
+</resources>
