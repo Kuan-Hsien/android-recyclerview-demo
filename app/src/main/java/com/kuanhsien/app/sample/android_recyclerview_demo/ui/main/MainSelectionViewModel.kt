@@ -1,4 +1,4 @@
-package com.kuanhsien.app.sample.android_recyclerview_demo.ui
+package com.kuanhsien.app.sample.android_recyclerview_demo.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

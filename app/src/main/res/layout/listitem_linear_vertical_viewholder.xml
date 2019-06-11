@@ -7,10 +7,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
 
-    <!-- View detail button -->
     <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_demo_item"
-            style="@style/ButtonMainSelectionStyle"
+            android:id="@+id/btn_item"
+            style="@style/ButtonMainGradientStyle"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:paddingStart="24dp"

@@ -1,4 +1,4 @@
-package com.kuanhsien.app.sample.android_recyclerview_demo.ui
+package com.kuanhsien.app.sample.android_recyclerview_demo.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,16 +9,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.kuanhsien.app.sample.android_recyclerview_demo.R
 import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoType
-import kotlinx.android.synthetic.main.activity_main.*
+import com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh.SwipeRefreshActivity
+import com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh.SwipeRefreshListActivity
+import kotlinx.android.synthetic.main.activity_main_selection.*
 
-class MainSelectionActivity : AppCompatActivity(), MainSelectionAdapter.OnItemClickListener {
+class MainSelectionActivity : AppCompatActivity(),
+    MainSelectionAdapter.OnItemClickListener {
 
     private lateinit var viewModel: MainSelectionViewModel
-    private lateinit var mainSelectionAdapter: MainSelectionAdapter
+    private lateinit var adapter: MainSelectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_selection)
 
         initRecyclerView()
 
@@ -26,7 +29,7 @@ class MainSelectionActivity : AppCompatActivity(), MainSelectionAdapter.OnItemCl
 
         viewModel.apply {
             demoTypeListLiveData.observe(this@MainSelectionActivity, Observer {
-                mainSelectionAdapter.setData(it)
+                adapter.setData(it)
             })
 
             // prepare data
@@ -45,16 +48,15 @@ class MainSelectionActivity : AppCompatActivity(), MainSelectionAdapter.OnItemCl
      * Setup recycler view
      */
     private fun initRecyclerView() {
-        mainSelectionAdapter = MainSelectionAdapter()
-        mainSelectionAdapter.setOnItemClickListener(this)
-        recyclerview_main_selection_list.adapter = mainSelectionAdapter
+        adapter = MainSelectionAdapter()
+        adapter.setOnItemClickListener(this)
+        recyclerview_main_selection_list.adapter = adapter
         recyclerview_main_selection_list.layoutManager = LinearLayoutManager(this)
         (recyclerview_main_selection_list.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false     // close default item animation
     }
 
-
     /**
-     * 把被點擊到的 session info 傳入 detail 頁面
+     * implement onItemClick
      */
     override fun onItemClick(type: DemoType) {
 
@@ -64,8 +66,9 @@ class MainSelectionActivity : AppCompatActivity(), MainSelectionAdapter.OnItemCl
             val intent = when (type) {
                 DemoType.SwipeRefresh ->
                     Intent(this, SwipeRefreshActivity::class.java)
-                else ->
-                    Intent(this, SwipeRefreshActivity::class.java)
+
+                DemoType.SwipeRefreshList ->
+                    Intent(this, SwipeRefreshListActivity::class.java)
             }
 
             startActivity(intent)
