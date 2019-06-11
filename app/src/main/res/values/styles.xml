@@ -8,8 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ButtonMainSelectionStyle">
-        <item name="android:background">@drawable/bg_btn_main_selection</item>
+    <style name="ButtonMainGradientStyle">
+        <item name="android:background">@drawable/bg_main_gradient</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>

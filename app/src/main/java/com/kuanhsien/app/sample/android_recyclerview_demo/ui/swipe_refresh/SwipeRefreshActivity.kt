@@ -1,4 +1,4 @@
-package com.kuanhsien.app.sample.android_recyclerview_demo.ui
+package com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,13 +8,21 @@ import com.kuanhsien.app.sample.android_recyclerview_demo.R
 import kotlinx.android.synthetic.main.activity_swipe_refresh.*
 
 
-private val refreshDelay: Long = 5000 // 5 seconds
+private const val REFRESH_DELAY: Long = 5000 // 5 seconds
 
 class SwipeRefreshActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_swipe_refresh)
+
+        initSwipeRefreshLayout()
+    }
+
+    /**
+     * Setup swipe refresh layout
+     */
+    private fun initSwipeRefreshLayout() {
 
         // [Swipe Refresh Layout]
         // 1. Set Color: (Method a)
@@ -42,8 +50,7 @@ class SwipeRefreshActivity : AppCompatActivity() {
 
                 Snackbar.make(root_swipe_refresh_container, getString(R.string.refresh_success), Snackbar.LENGTH_SHORT).show()
 
-            }, refreshDelay)
+            }, REFRESH_DELAY)
         }
-
     }
 }

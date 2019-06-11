@@ -1,4 +1,4 @@
-package com.kuanhsien.app.sample.android_recyclerview_demo.ui
+package com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,22 +6,25 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.kuanhsien.app.sample.android_recyclerview_demo.R
-import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoType
-import kotlinx.android.synthetic.main.listitem_main_selection_viewholder.view.*
+import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoItem
+import kotlinx.android.synthetic.main.listitem_linear_vertical_viewholder.view.*
 
-class MainSelectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SwipeRefreshListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(type: DemoType)
+        fun onItemClick(type: DemoItem)
     }
 
     private var listener: OnItemClickListener? = null
-    private var dataList = mutableListOf<DemoType>()
+    private var dataList = mutableListOf<DemoItem>()
+
 
     // override to use recycler view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.listitem_main_selection_viewholder, parent, false)
-        return MainItemViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.listitem_linear_vertical_viewholder, parent, false)
+        return MainItemViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {
@@ -39,12 +42,12 @@ class MainSelectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         this.listener = listener
     }
 
-    fun setData(dataList: List<DemoType>) {
+    fun setData(dataList: List<DemoItem>) {
         this.dataList = dataList.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun insertData(position: Int, list: List<DemoType>) {
+    fun insertData(position: Int, list: List<DemoItem>) {
         this.dataList.addAll(position, list)
         notifyItemRangeInserted(position, list.size)
     }
@@ -54,14 +57,14 @@ class MainSelectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private var animation = AnimationUtils.loadAnimation(itemView.context, R.anim.item_animation_fall_down)
 
-        fun bind(data: DemoType, listener: OnItemClickListener?) {
+        fun bind(data: DemoItem, listener: OnItemClickListener?) {
 
-            // set button text
-            itemView.btn_demo_item.text = itemView.context.getString(data.titleRes)
+            // set item text
+            itemView.btn_item.text = data.id.toString()
 
             // set button listener
             listener?.run {
-                itemView.btn_demo_item.setOnClickListener { onItemClick(data) }
+                itemView.btn_item.setOnClickListener { onItemClick(data) }
             }
 
             // setAnimation
