@@ -2,6 +2,7 @@
     <string name="app_name">Recyclerview Demo</string>
     <string name="title_swipe_refresh_activity">Swipe Refresh Activity</string>
     <string name="title_swipe_refresh_list_activity">Swipe Refresh Recycler View</string>
+    <string name="title_discrete_scrollview_activity">Discrete Scrollview</string>
 
     <string name="refresh_success">Refresh Success</string>
     <string name="some_other_views">Some other views</string>
