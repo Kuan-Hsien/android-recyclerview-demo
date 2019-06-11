@@ -1,27 +1,43 @@
 package com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoItem
+import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoItemRepository
 
 class SwipeRefreshListViewModel : ViewModel() {
 
+    // repository
+    private lateinit var repository: DemoItemRepository
+
+    fun initRepository() {
+        this.repository = DemoItemRepository()
+    }
+
+    // For testing
+    fun initRepository(repository: DemoItemRepository) {
+        this.repository = repository
+    }
+
+
+    // data
     private val dataList = mutableListOf<DemoItem>()
-    private var updateList = mutableListOf<DemoItem>()  // current update list
-    val demoItemListLiveData = MutableLiveData<List<DemoItem>>()
+
+    // updated data from which position
+    private val _updateItemPosLiveData = MutableLiveData<Int>()
+    val updateItemPosLiveData: LiveData<Int>
+        get() = _updateItemPosLiveData
+
+    var updateList = mutableListOf<DemoItem>()  // current update list
 
 
-    fun prepareData() {
+    // fun
+    fun getDataFromTop(size: Int = 5, fromIndex: Int = dataList.size) {
 
-        // TODO: update data should do in Model layer (such as repository)
-        updateList.clear()
+        updateList = repository.getItemList(size, fromIndex).toMutableList()
+        dataList.addAll(0, updateList)
 
-        for (i in 1..5) {
-            val demoItem = DemoItem(dataList.size)
-            updateList.add(0, demoItem)
-            dataList.add(0, demoItem)
-        }
-
-        demoItemListLiveData.postValue(updateList)
+        _updateItemPosLiveData.postValue(0)
     }
 }

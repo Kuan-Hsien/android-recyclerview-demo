@@ -32,12 +32,15 @@ class SwipeRefreshListActivity : AppCompatActivity(),
         viewModel = ViewModelProviders.of(this).get(SwipeRefreshListViewModel::class.java)
 
         viewModel.apply {
-            demoItemListLiveData.observe(this@SwipeRefreshListActivity, Observer {
-                adapter.insertData(0, it)
+            updateItemPosLiveData.observe(this@SwipeRefreshListActivity, Observer {position ->
+                adapter.insertData(position, updateList)
             })
 
+            // init Repository
+            initRepository()
+
             // prepare data
-            prepareData()
+            getDataFromTop()
         }
 
     }
@@ -68,7 +71,7 @@ class SwipeRefreshListActivity : AppCompatActivity(),
             Handler().postDelayed({
 
                 root_swipe_refresh_list_container.isRefreshing = false
-                viewModel.prepareData()
+                viewModel.getDataFromTop()
                 Snackbar.make(root_swipe_refresh_list_container, "Scroll up to view new items", Snackbar.LENGTH_LONG)
                     .setAction("OK") {
                         recyclerview_swipe_refresh_list.smoothScrollToPosition(0)
@@ -94,6 +97,6 @@ class SwipeRefreshListActivity : AppCompatActivity(),
      * implement onItemClick
      */
     override fun onItemClick(item: DemoItem) {
-
+        // call viewModel.updateData(item), then viewModel would call repository.updateData(item) and update Livedata while enter api.onComplete
     }
 }
