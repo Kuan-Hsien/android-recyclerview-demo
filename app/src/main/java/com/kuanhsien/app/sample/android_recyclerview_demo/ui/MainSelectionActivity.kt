@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.kuanhsien.app.sample.android_recyclerview_demo.R
 import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoType
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_selection.*
 
 class MainSelectionActivity : AppCompatActivity(), MainSelectionAdapter.OnItemClickListener {
 
@@ -18,7 +18,7 @@ class MainSelectionActivity : AppCompatActivity(), MainSelectionAdapter.OnItemCl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_selection)
 
         initRecyclerView()
 

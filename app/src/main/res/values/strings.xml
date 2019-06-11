@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Recyclerview Demo</string>
     <string name="title_swipe_refresh_activity">Swipe Refresh Activity</string>
+    <string name="refresh_success">Refresh Success</string>
 </resources>
