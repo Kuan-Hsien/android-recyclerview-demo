@@ -23,16 +23,23 @@
         </activity>
 
         <activity android:name=".ui.swipe_refresh.SwipeRefreshActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity android:name=".ui.swipe_refresh.SwipeRefreshListActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity android:name=".ui.discrete_scrollview.DiscreteScrollViewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
     </application>
 

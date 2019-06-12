@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.kuanhsien.app.sample.android_recyclerview_demo.R
 import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoType
+import com.kuanhsien.app.sample.android_recyclerview_demo.ui.discrete_scrollview.DiscreteScrollViewActivity
 import com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh.SwipeRefreshActivity
 import com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh.SwipeRefreshListActivity
 import kotlinx.android.synthetic.main.activity_main_selection.*
@@ -69,6 +70,9 @@ class MainSelectionActivity : AppCompatActivity(),
 
                 DemoType.SwipeRefreshList ->
                     Intent(this, SwipeRefreshListActivity::class.java)
+
+                DemoType.DiscreteScrollView ->
+                    Intent(this, DiscreteScrollViewActivity::class.java)
             }
 
             startActivity(intent)

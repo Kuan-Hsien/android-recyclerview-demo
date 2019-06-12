@@ -10,6 +10,8 @@ buildscript {
         lifecycleVersion = '2.0.0'
         androidMaterialVersion = '1.0.0'
 
+        discreteScrollviewVersion = '1.4.9'
+
     }
     repositories {
         google()
