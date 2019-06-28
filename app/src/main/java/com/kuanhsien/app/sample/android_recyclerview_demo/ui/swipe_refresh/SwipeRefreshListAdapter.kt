@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.listitem_linear_vertical_viewholder.view.*
 class SwipeRefreshListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(type: DemoItem)
+        fun onItemClick(item: DemoItem)
     }
 
     private var listener: OnItemClickListener? = null
