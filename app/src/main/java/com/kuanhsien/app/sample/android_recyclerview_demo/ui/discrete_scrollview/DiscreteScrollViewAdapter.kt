@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.listitem_discrete_scrollview_item_viewhold
 class DiscreteScrollViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(type: DemoItem)
+        fun onItemClick(item: DemoItem)
     }
 
     private var listener: OnItemClickListener? = null
@@ -35,6 +35,10 @@ class DiscreteScrollViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
 
+    // get Data
+    fun getData(): List<DemoItem> = dataList
+
+
     // set Data
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
@@ -49,6 +53,7 @@ class DiscreteScrollViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         this.dataList.addAll(position, list)
         notifyItemRangeInserted(position, list.size)
     }
+
 
     // ViewHolder
     class MainItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

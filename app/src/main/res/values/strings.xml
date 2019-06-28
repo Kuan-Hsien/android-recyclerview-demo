@@ -6,4 +6,8 @@
 
     <string name="refresh_success">Refresh Success</string>
     <string name="some_other_views">Some other views</string>
+
+    <string name="current_item_1s">Current Item: %1$s</string>
+    <string name="click_item_1s">Click Item: %1$s</string>
+
 </resources>
