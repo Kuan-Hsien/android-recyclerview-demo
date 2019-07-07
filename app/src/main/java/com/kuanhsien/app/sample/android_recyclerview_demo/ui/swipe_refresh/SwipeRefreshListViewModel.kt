@@ -3,12 +3,11 @@ package com.kuanhsien.app.sample.android_recyclerview_demo.ui.swipe_refresh
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoItem
-import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoItemRepository
+import com.kuanhsien.app.sample.android_recyclerview_demo.data.*
 
 class SwipeRefreshListViewModel : ViewModel() {
 
-    // repository
+    // Repository
     private lateinit var repository: DemoItemRepository
 
     fun initRepository() {
@@ -21,23 +20,50 @@ class SwipeRefreshListViewModel : ViewModel() {
     }
 
 
-    // data
-    private val dataList = mutableListOf<DemoItem>()
+    // LiveData
+    // call ui to hide swipe-refresh animation
+    private val _isRefreshDoneLiveData = MutableLiveData<Boolean>()
+    val isRefreshDoneLiveData : LiveData<Boolean>
+        get() = _isRefreshDoneLiveData
 
     // updated data from which position
     private val _updateItemPosLiveData = MutableLiveData<Int>()
     val updateItemPosLiveData: LiveData<Int>
         get() = _updateItemPosLiveData
 
+
+    // Data
+    private val dataList = mutableListOf<DemoItem>()
     var updateList = mutableListOf<DemoItem>()  // current update list
+    private var nextIndex: Int? = 0
 
 
-    // fun
-    fun getDataFromTop(size: Int = 5, fromIndex: Int = dataList.size) {
+    // Fun
+    fun getDataFromBottom(size: Int = LOAD_DATA_SIZE, index: Int? = nextIndex) {
 
-        updateList = repository.getItemList(size, fromIndex).toMutableList()
-        dataList.addAll(0, updateList)
+        updateList.clear()
 
-        _updateItemPosLiveData.postValue(0)
+        if (index == null) {
+            _isRefreshDoneLiveData.postValue(false)
+            return
+
+        } else {
+            val response = repository.getItemFrom(
+                DemoQueryInput(
+                    size = size,
+                    fromIndex = index,
+                    direction = LoadDataDirection.AFTER,
+                    order = LoadDataOrder.DESC
+                )
+            )
+
+            updateList = response.list.toMutableList()
+            nextIndex = response.nextIndex
+
+            dataList.addAll(0, updateList)
+
+            _updateItemPosLiveData.postValue(0)
+            _isRefreshDoneLiveData.postValue(true)
+        }
     }
 }

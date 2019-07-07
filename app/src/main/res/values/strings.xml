@@ -10,4 +10,11 @@
     <string name="current_item_1s">Current Item: %1$s</string>
     <string name="click_item_1s">Click Item: %1$s</string>
 
+    <!-- Hint -->
+    <string name="hint_scroll_up_view_items">Scroll up to view new items</string>
+    <string name="hint_no_more_data">no more data</string>
+
+    <!-- Button -->
+    <string name="button_ok">OK</string>
+
 </resources>

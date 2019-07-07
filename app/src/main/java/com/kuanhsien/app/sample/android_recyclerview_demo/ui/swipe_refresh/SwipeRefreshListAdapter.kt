@@ -52,6 +52,7 @@ class SwipeRefreshListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         notifyItemRangeInserted(position, list.size)
     }
 
+
     // ViewHolder
     class MainItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
