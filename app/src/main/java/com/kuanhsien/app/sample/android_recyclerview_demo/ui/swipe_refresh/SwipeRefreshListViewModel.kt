@@ -35,7 +35,7 @@ class SwipeRefreshListViewModel : ViewModel() {
     // Data
     private val dataList = mutableListOf<DemoItem>()
     var updateList = mutableListOf<DemoItem>()  // current update list
-    private var nextIndex: Int? = 0
+    private var nextIndex: Int? = 0     // if no next item, nextIndex would be null
 
 
     // Fun
