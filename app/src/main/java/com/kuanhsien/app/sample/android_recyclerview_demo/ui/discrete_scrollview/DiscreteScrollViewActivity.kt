@@ -1,11 +1,13 @@
 package com.kuanhsien.app.sample.android_recyclerview_demo.ui.discrete_scrollview
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.kuanhsien.app.sample.android_recyclerview_demo.R
+import com.kuanhsien.app.sample.android_recyclerview_demo.data.BundleKey
 import com.kuanhsien.app.sample.android_recyclerview_demo.data.DemoItem
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.Pivot
@@ -18,7 +20,8 @@ import kotlinx.android.synthetic.main.activity_discrete_scrollview.*
  * https://github.com/yarolegovich/DiscreteScrollView
  */
 class DiscreteScrollViewActivity : AppCompatActivity(),
-    DiscreteScrollViewAdapter.OnItemClickListener, DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> {
+    DiscreteScrollViewAdapter.OnItemClickListener, DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>,
+    View.OnLayoutChangeListener {
 
     private lateinit var viewModel: DiscreteScrollViewViewModel
     private lateinit var adapter: DiscreteScrollViewAdapter
@@ -34,17 +37,31 @@ class DiscreteScrollViewActivity : AppCompatActivity(),
         viewModel.apply {
             updateItemPosLiveData.observe(this@DiscreteScrollViewActivity, Observer { position ->
                 adapter.insertData(position, updateList)
+
+                // after notifyItemRangeInserted, will trigger onLayoutChange
+                discrete_scrollview_list.addOnLayoutChangeListener(this@DiscreteScrollViewActivity)
+            })
+
+            scrollListToPosition.observe(this@DiscreteScrollViewActivity, Observer {
+                discrete_scrollview_list.smoothScrollToPosition(it)
             })
 
             // init Repository
             initRepository()
-
-            // prepare data
-            prepareData()
         }
+
+        // Get data from bundle
+        resolveIntent()
 
         // init click item text
         tv_discrete_scrollview_list_click_item_title.text = getString(R.string.click_item_1s, "")
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // prepare data
+        viewModel.prepareData()
     }
 
     override fun onDestroy() {
@@ -70,6 +87,13 @@ class DiscreteScrollViewActivity : AppCompatActivity(),
         )
     }
 
+    // Get data from bundle
+    private fun resolveIntent() {
+        if (intent.hasExtra(BundleKey.EXTRA_KEY_DISCRETE_SCROLLVIEW_INIT_POS.key)) {
+            viewModel.itemIdSelected = intent.getIntExtra(BundleKey.EXTRA_KEY_DISCRETE_SCROLLVIEW_INIT_POS.key, DEFAULT_ITEM_ID)
+        }
+    }
+
 
     /**
      *  implement onItemClick
@@ -90,5 +114,20 @@ class DiscreteScrollViewActivity : AppCompatActivity(),
         val data = adapter.getData()[adapterPosition]
 
         tv_discrete_scrollview_list_current_item_title.text = getString(R.string.current_item_1s, data.id.toString())
+    }
+
+    override fun onLayoutChange(
+        v: View?,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        oldLeft: Int,
+        oldTop: Int,
+        oldRight: Int,
+        oldBottom: Int
+    ) {
+        discrete_scrollview_list.removeOnLayoutChangeListener(this@DiscreteScrollViewActivity)
+        viewModel.scrollList()
     }
 }
