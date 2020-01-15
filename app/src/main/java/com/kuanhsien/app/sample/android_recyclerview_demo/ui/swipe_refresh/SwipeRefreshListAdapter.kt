@@ -43,7 +43,8 @@ class SwipeRefreshListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     fun setData(dataList: List<DemoItem>) {
-        this.dataList = dataList.toMutableList()
+        this.dataList.clear()
+        this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
 

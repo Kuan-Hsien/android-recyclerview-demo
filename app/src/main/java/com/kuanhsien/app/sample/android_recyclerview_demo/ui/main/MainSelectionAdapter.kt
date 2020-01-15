@@ -39,7 +39,8 @@ class MainSelectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun setData(dataList: List<DemoType>) {
-        this.dataList = dataList.toMutableList()
+        this.dataList.clear()
+        this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
 
