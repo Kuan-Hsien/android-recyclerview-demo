@@ -109,7 +109,6 @@ class SwipeRefreshListActivity : AppCompatActivity(),
         adapter.setOnItemClickListener(this)
         recyclerview_swipe_refresh_list.adapter = adapter
         recyclerview_swipe_refresh_list.layoutManager = LinearLayoutManager(this)
-        (recyclerview_swipe_refresh_list.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false     // close default item animation
     }
 
     /**
