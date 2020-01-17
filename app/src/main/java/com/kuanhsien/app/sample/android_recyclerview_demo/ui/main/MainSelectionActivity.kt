@@ -59,23 +59,12 @@ class MainSelectionActivity : AppCompatActivity(),
     /**
      * implement onItemClick
      */
-    override fun onItemClick(type: DemoType) {
+    override fun onItemClick(demoType: DemoType) {
 
         if (recyclerview_main_selection_list.isClickable) {
             recyclerview_main_selection_list.isClickable = false
 
-            val intent = when (type) {
-                DemoType.SwipeRefresh ->
-                    Intent(this, SwipeRefreshActivity::class.java)
-
-                DemoType.SwipeRefreshList ->
-                    Intent(this, SwipeRefreshListActivity::class.java)
-
-                DemoType.DiscreteScrollView ->
-                    Intent(this, DiscreteScrollViewActivity::class.java)
-            }
-
-            startActivity(intent)
+            startActivity(Intent(this, demoType.activityClass))
         }
     }
 }
